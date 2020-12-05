@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const blogs = require("../model/blog");
 const multer = require("multer");
+const blog = require("../model/blog");
 
 //Multer
 const storage = multer.diskStorage({
@@ -29,11 +30,25 @@ const upload = multer({
 });
 
 //Route
+
+//Get
+router.get("/", (req, res) => {
+	blog.find((err, data) => {
+		if (err) throw err;
+		res.json(data);
+	});
+});
+
+//Post
 router.post("/", upload.single("image"), (req, res) => {
 	let { title, description, blog } = req.body;
+
+	let link = "/blog/" + title.split(" ").join("-").toLowerCase();
+
 	blogs.create(
 		{
-			image: req.file.path,
+			link: link,
+			image: "/" + req.file.path,
 			title: title,
 			description: description,
 			blog: blog,
