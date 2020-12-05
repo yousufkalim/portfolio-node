@@ -10,6 +10,7 @@ const port = process.env.PORT || 5000;
 require("./database");
 
 // Middleware
+app.use("/upload", express.static("upload"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(logger("dev"));
