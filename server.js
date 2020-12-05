@@ -6,11 +6,12 @@ const logger = require("morgan");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const contacts = require("./controllers/contacts");
+const blog = require("./controllers/blog");
 const port = process.env.PORT || 5000;
 require("./database");
 
 // Middleware
-app.use("/upload", express.static("upload"));
+app.use("/uploads", express.static("uploads"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(logger("dev"));
@@ -18,6 +19,7 @@ app.use(cors({ origin: "http://localhost:3000" }));
 
 //Routes
 app.use("/contact", contacts);
+app.use("/blog", blog);
 
 // Default Route
 app.get("/", (req, res) => {
