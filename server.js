@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const contacts = require("./controllers/contacts");
 const blog = require("./controllers/blog");
+const portfolio = require("./controllers/portfolio");
 const user = require("./controllers/user");
 const port = process.env.PORT || 5000;
 require("./database");
@@ -21,6 +22,7 @@ app.use(cors({ origin: "http://localhost:3000" }));
 //Routes
 app.use("/contact", contacts);
 app.use("/blog", blog);
+app.use("/portfolio", portfolio);
 app.use("/login", user);
 
 // Default Route

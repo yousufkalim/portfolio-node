@@ -12,6 +12,10 @@ const blogSchema = new mongoose.Schema({
 	title: String,
 	description: String,
 	blog: String,
+	dateCreated: {
+		type: Date,
+		default: Date.now(),
+	},
 });
 
 module.exports = mongoose.model("blogs", blogSchema);

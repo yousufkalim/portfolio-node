@@ -42,4 +42,28 @@ const articleImage = multer({
 	fileFilter: fileFilter,
 });
 
-module.exports = { blogThumbnail, articleImage };
+// Portfolio Images Strategy
+const portfolio = multer({
+	storage: multer.diskStorage({
+		destination: function (req, file, cb) {
+			if (file.fieldname === "thumbnail") {
+				cb(null, "uploads/portfolio/thumbnails");
+			} else {
+				cb(null, "uploads/portfolio/covers");
+			}
+		},
+		filename: function (req, file, cb) {
+			cb(null, Date.now() + "-" + file.originalname);
+		},
+	}),
+	limits: {
+		fileSize: 1024 * 1024 * 5,
+	},
+	fileFilter: fileFilter,
+});
+
+module.exports = {
+	blogThumbnail,
+	articleImage,
+	portfolio,
+};
