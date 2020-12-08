@@ -5,7 +5,21 @@ const portfolio = require("../model/portfolio");
 //Image Startegy
 const imageStrategy = require("./imageStrategy");
 
-//Routes
+/*
+============
+Routes
+============
+*/
+
+//Get Request
+router.get("/", (req, res) => {
+	portfolio.find((err, data) => {
+		if (err) throw err;
+		res.json(data);
+	});
+});
+
+//Post Request
 router.post(
 	"/",
 	imageStrategy.portfolio.fields([
