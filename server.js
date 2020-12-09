@@ -5,11 +5,7 @@ const app = express();
 const logger = require("morgan");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const contacts = require("./controllers/contacts");
-const blog = require("./controllers/blog");
-const portfolio = require("./controllers/portfolio");
-const quotes = require("./controllers/quotes");
-const user = require("./controllers/user");
+const routes = require("./routes");
 const port = process.env.PORT || 5000;
 require("./database");
 
@@ -18,19 +14,10 @@ app.use("/uploads", express.static("uploads"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(logger("dev"));
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({ credentials: true }));
 
 //Routes
-app.use("/contact", contacts);
-app.use("/blog", blog);
-app.use("/portfolio", portfolio);
-app.use("/quotes", quotes);
-app.use("/login", user);
-
-// Default Route
-app.get("/", (req, res) => {
-	res.json({ Message: "This route is running" });
-});
+app.use("/", routes);
 
 // Server Listen
 app.listen(port, () => {

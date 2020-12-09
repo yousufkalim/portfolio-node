@@ -7,26 +7,32 @@ module.exports = (passport) => {
 		new LocalStrategy(
 			{ usernameField: "email" },
 			(email, password, done) => {
-				users.findOne({ email: email }, (err, user) => {
+				users.findOne({ email: email }, (err, data) => {
 					if (err) throw err;
-					const compare = bcrypt.compareSync("password", password);
-					if (!compare) {
+					if (!data) {
 						return done(null, false);
-					} else if (compare) {
-						return done(null, user);
 					}
+					bcrypt.compare(password, data.password, (err, match) => {
+						if (err) {
+							return done(null, false);
+						} else if (!match) {
+							return done(null, false);
+						} else if (match) {
+							return done(null, data);
+						}
+					});
 				});
 			}
 		)
 	);
 
+	//Serialize Users
 	passport.serializeUser((user, done) => {
 		done(null, user.id);
 	});
-
 	passport.deserializeUser((id, done) => {
-		users.findById(id, (err, data) => {
-			done(err, data);
+		users.findById(id, (err, user) => {
+			done(err, user);
 		});
 	});
 };
