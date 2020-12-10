@@ -1,3 +1,4 @@
+// Init
 const router = require("express").Router();
 const quotes = require("../model/quotes");
 
@@ -7,16 +8,8 @@ Routes
 ===========
 */
 
-//Get Route
-router.get("/", (req, res) => {
-	quotes.find((err, data) => {
-		if (err) throw err;
-		res.json(data);
-	});
-});
-
 //Post
-router.post("/", (req, res) => {
+router.post("/quotes", (req, res) => {
 	console.log(req.body.quote);
 	let { quote, author } = req.body;
 
@@ -35,4 +28,5 @@ router.post("/", (req, res) => {
 	);
 });
 
+// Export
 module.exports = router;

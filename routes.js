@@ -5,11 +5,16 @@ const session = require("express-session");
 const passport = require("passport");
 require("./controllers/passport")(passport);
 
-//Routes
-const blog = require("./controllers/blog");
-const contacts = require("./controllers/contacts");
-const portfolio = require("./controllers/portfolio");
-const quotes = require("./controllers/quotes");
+// Importing Get Routes
+const blog = require("./Get Routes/blog");
+const contacts = require("./Get Routes/contacts");
+const portfolio = require("./Get Routes/portfolio");
+const quotes = require("./Get Routes/quotes");
+
+// Importing Post Routes
+const blogPost = require("./Post Routes/blog");
+const portfolioPost = require("./Post Routes/portfolio");
+const quotesPost = require("./Post Routes/quotes");
 
 //Middleware
 router.use(cookieParser("dA47Xd^l%Ar5"));
@@ -65,10 +70,16 @@ All Routes
 ================
 */
 
-// router.use("/contact", checkAuth, contacts);
-// router.use("/blog", checkAuth, blog);
-// router.use("/portfolio", checkAuth, portfolio);
-// router.use("/quotes", checkAuth, quotes);
+// Get Routes
+router.post("/contact", contacts);
+router.get("/blog", blog);
+router.get("/portfolio", portfolio);
+router.get("/quotes", quotes);
+
+// Post Routs
+router.post("/blog", checkAuth, blogPost);
+router.post("/portfolio", checkAuth, portfolioPost);
+router.post("/quotes", checkAuth, quotesPost);
 
 //Export
 module.exports = router;

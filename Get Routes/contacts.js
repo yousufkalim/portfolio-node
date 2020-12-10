@@ -3,7 +3,7 @@ const router = require("express").Router();
 const contacts = require("../model/contacts");
 
 // Contact Post
-router.post("/", (req, res) => {
+router.post("/contact", (req, res) => {
 	let { name, email, phone } = req.body.data;
 	contacts.create(
 		{

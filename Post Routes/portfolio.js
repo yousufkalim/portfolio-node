@@ -3,7 +3,7 @@ const router = require("express").Router();
 const portfolio = require("../model/portfolio");
 
 //Image Startegy
-const imageStrategy = require("./imageStrategy");
+const imageStrategy = require("../controllers/imageStrategy");
 
 /*
 ============
@@ -11,17 +11,9 @@ Routes
 ============
 */
 
-//Get Request
-router.get("/", (req, res) => {
-	portfolio.find((err, data) => {
-		if (err) throw err;
-		res.json(data);
-	});
-});
-
 //Post Request
 router.post(
-	"/",
+	"/portfolio",
 	imageStrategy.portfolio.fields([
 		{ name: "thumbnail", maxCount: 1 },
 		{ name: "cover", maxCount: 1 },
